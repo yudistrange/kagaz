@@ -6,7 +6,7 @@ tags:
   - personal
   - books
 ogImage: ""
-description: books on the to-read list
+description: list of books
 ---
 
 I have been sitting on a pile of technical books that I would like to read. But I haven't been able to do it with conviction. I keep getting distracted by something or the other.
