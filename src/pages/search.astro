@@ -24,9 +24,9 @@ const tilList = tils.map(transform)
 const searchList = tilList.concat(postList)
 ---
 
-<Layout title={`Search | ${SITE.title}`}>
+<Layout title={`search | ${SITE.title}`}>
   <Header activeNav="search" />
-  <Main pageTitle="Search" pageDesc="Search any article ...">
+  <Main pageTitle="search" pageDesc="find stuff...">
     <Search client:load searchList={searchList} />
   </Main>
   <Footer />
