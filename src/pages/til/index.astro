@@ -2,7 +2,7 @@
 import TIL from "@layouts/TIL.astro";
 import { getCollection } from "astro:content";
 
-const tils = await getCollection("til");
+const tils = await getCollection("til", ({ data }) => !data.draft);
 ---
 
 <TIL tils={tils} />
