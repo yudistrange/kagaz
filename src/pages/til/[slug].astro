@@ -1,0 +1,29 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import slugify from "@utils/slugify";
+import getPageNumbers from "@utils/getPageNumbers";
+import TILDetails from "@layouts/TILDetails.astro";
+
+export interface Props {
+  til: CollectionEntry<"til">;
+}
+
+export async function getStaticPaths() {
+  const tils = await getCollection("til", ({ data }) => !data.draft);
+
+  const tilResult = tils.map(til => ({
+    params: { slug: slugify(til.data) },
+    props: { til },
+  }));
+
+  const pagePaths = getPageNumbers(tils.length).map(pageNum => ({
+    params: { slug: String(pageNum) },
+  }));
+
+  return [...tilResult, ...pagePaths];
+}
+
+
+const { til } = Astro.props;
+---
+<TILDetails til={til} />
