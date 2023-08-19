@@ -3,7 +3,6 @@ import TIL from "@layouts/TIL.astro";
 import { getCollection } from "astro:content";
 
 const tils = await getCollection("til");
-const totalTils = tils.length;
 ---
 
-<TIL tils={tils} totalTils={totalTils} />
+<TIL tils={tils} />
