@@ -23,7 +23,7 @@ export async function getStaticPaths() {
   return [...tilResult, ...pagePaths];
 }
 
-
 const { til } = Astro.props;
 ---
+
 <TILDetails til={til} />

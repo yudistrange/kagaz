@@ -22,10 +22,7 @@ breadcrumbList[0] === "posts" &&
       breadcrumbList.map((breadcrumb, index) =>
         index + 1 === breadcrumbList.length ? (
           <li>
-            <span
-              class={ "lowercase" }
-              aria-current="page"
-            >
+            <span class={"lowercase"} aria-current="page">
               {/* make the last part lowercase in Home > Tags > some-tag */}
               {breadcrumb}
             </span>
