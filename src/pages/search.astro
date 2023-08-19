@@ -9,13 +9,19 @@ import Search from "@components/Search";
 
 // Retrieve all articles
 const posts = await getCollection("blog", ({ data }) => !data.draft);
+const tils = await getCollection("til", ({data}) => !data.draft);
 
-// List of items to search in
-const searchList = posts.map(({ data }) => ({
+const transform = ({ data }) => ({
   title: data.title,
   description: data.description,
-  data,
-}));
+  data
+});
+
+// List of items to search in
+const postList = posts.map(transform);
+const tilList = tils.map(transform)
+
+const searchList = tilList.concat(postList)
 ---
 
 <Layout title={`Search | ${SITE.title}`}>
