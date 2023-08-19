@@ -1,0 +1,31 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import slugify from "@utils/slugify";
+import getPageNumbers from "@utils/getPageNumbers";
+import BookReview from "@layouts/BookReview.astro";
+import Bookshelf from "@layouts/Bookshelf.astro";
+
+export interface Props {
+  book: CollectionEntry<"book">;
+}
+
+export async function getStaticPaths() {
+  const books = await getCollection("book", ({ data }) => !data.draft);
+
+  const bookResult = books.map(book => ({
+    params: { slug: slugify(book.data) },
+    props: { book },
+  }));
+
+  const pagePaths = getPageNumbers(books.length).map(pageNum => ({
+    params: { slug: String(pageNum) },
+  }));
+
+  return [...bookResult, ...pagePaths];
+}
+
+const books = await getCollection("book");
+const { book } = Astro.props;
+---
+
+{book ? <BookReview book={book} /> : <Bookshelf books={books} />}
