@@ -9,11 +9,10 @@ import slugify from "@utils/slugify";
 import type { CollectionEntry } from "astro:content";
 
 export interface Props {
-  totalTils: number;
   tils: CollectionEntry<"til">[];
 }
 
-const { totalTils, tils } = Astro.props;
+const { tils } = Astro.props;
 ---
 
 <Layout title={`TIL | ${SITE.title}`}>
@@ -27,7 +26,7 @@ const { totalTils, tils } = Astro.props;
       }
     </ul>
   </Main>
-  <Footer noMarginTop={totalTils > 1} />
+  <Footer noMarginTop={tils.length > 1} />
 </Layout>
 
 <style>
