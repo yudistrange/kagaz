@@ -1,0 +1,8 @@
+---
+import { getCollection } from "astro:content";
+import Bookshelf from "@layouts/Bookshelf.astro";
+
+const books = await getCollection("book", ({ data }) => !data.draft)
+---
+
+<Bookshelf books={books} />

@@ -30,3 +30,18 @@ export const tilSchema = z
   .strict();
 
 export type TilFrontmatter = z.infer<typeof tilSchema>;
+
+export const bookSchema = z
+  .object({
+    author: z.string().optional(),
+    pubDatetime: z.date(),
+    title: z.string(),
+    postSlug: z.string().optional(),
+    draft: z.boolean().optional().default(false),
+    tags: z.array(z.string()).default(["books"]),
+    description: z.string(),
+    bookAuthor: z.string(),
+  })
+  .strict();
+
+export type BookFrontmatter = z.infer<typeof bookSchema>;
