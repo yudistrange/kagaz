@@ -1,8 +1,14 @@
 ---
-import { getCollection } from "astro:content";
+import { CollectionEntry, getCollection } from "astro:content";
+import getSortedPosts from "@utils/getSortedPosts";
 import Bookshelf from "@layouts/Bookshelf.astro";
 
-const books = await getCollection("book", ({ data }) => !data.draft);
+const books: CollectionEntry<"book"> = await getCollection(
+  "book",
+  ({ data }) => !data.draft
+);
+
+const sortedBooks = getSortedPosts(books);
 ---
 
-<Bookshelf books={books} />
+<Bookshelf books={sortedBooks} />

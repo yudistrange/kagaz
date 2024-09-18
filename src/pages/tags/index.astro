@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { CollectionEntry, getCollection } from "astro:content";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Layout from "@layouts/Layout.astro";
@@ -8,9 +8,15 @@ import Tag from "@components/Tag.astro";
 import getUniqueTags from "@utils/getUniqueTags";
 import { SITE } from "@config";
 
-const posts = await getCollection("blog");
-const tils = await getCollection("til");
-const books = await getCollection("book");
+const posts: CollectionEntry<"book" | "til" | "blog">[] = await getCollection(
+  "blog"
+);
+const tils: CollectionEntry<"book" | "til" | "blog">[] = await getCollection(
+  "til"
+);
+const books: CollectionEntry<"book" | "til" | "blog">[] = await getCollection(
+  "book"
+);
 
 const allPosts = posts.concat(tils).concat(books);
 let tags = getUniqueTags(allPosts);
