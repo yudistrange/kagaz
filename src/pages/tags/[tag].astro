@@ -19,8 +19,9 @@ export interface Props {
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
   const tils = await getCollection("til", ({ data }) => !data.draft);
+  const books = await getCollection("book", ({ data }) => !data.draft);
 
-  const allContent = posts.concat(tils);
+  const allContent = posts.concat(tils).concat(books);
   const tags = getUniqueTags(allContent);
 
   return tags.map(tag => {
@@ -35,8 +36,9 @@ const { tag } = Astro.props;
 
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 const tils = await getCollection("til", ({ data }) => !data.draft);
+const books = await getCollection("book", ({ data }) => !data.draft);
 
-const allContent = posts.concat(tils);
+const allContent = posts.concat(tils).concat(books);
 const filteredContent = getPostsByTag(allContent, tag);
 
 const sortTagsPost = getSortedPosts(filteredContent);

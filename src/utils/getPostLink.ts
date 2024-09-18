@@ -9,7 +9,7 @@ const getPostLink = (post: CollectionEntry<"book" | "til" | "blog">) => {
       type = "til";
       break;
     case "book":
-      type = "book";
+      type = "books";
       break;
     case "blog":
     default:
