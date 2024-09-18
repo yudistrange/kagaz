@@ -17,9 +17,11 @@ export interface Props {
 }
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  const tils = await getCollection("til", ({ data }) => !data.draft);
 
-  const tags = getUniqueTags(posts);
+  const allContent = posts.concat(tils);
+  const tags = getUniqueTags(allContent);
 
   return tags.map(tag => {
     return {
@@ -32,10 +34,12 @@ export async function getStaticPaths() {
 const { tag } = Astro.props;
 
 const posts = await getCollection("blog", ({ data }) => !data.draft);
+const tils = await getCollection("til", ({ data }) => !data.draft);
 
-const tagPosts = getPostsByTag(posts, tag);
+const allContent = posts.concat(tils);
+const filteredContent = getPostsByTag(allContent, tag);
 
-const sortTagsPost = getSortedPosts(tagPosts);
+const sortTagsPost = getSortedPosts(filteredContent);
 ---
 
 <Layout title={`Tag:${tag} | ${SITE.title}`}>
@@ -46,8 +50,11 @@ const sortTagsPost = getSortedPosts(tagPosts);
   >
     <ul>
       {
-        sortTagsPost.map(({ data }) => (
-          <Card href={`/posts/${slugify(data)}`} frontmatter={data} />
+        sortTagsPost.map(post => (
+          <Card
+            href={`/${post?.collection || "posts"}/${slugify(post?.data)}`}
+            frontmatter={post?.data}
+          />
         ))
       }
     </ul>
