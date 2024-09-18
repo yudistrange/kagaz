@@ -12,7 +12,7 @@ const posts = await getCollection("blog");
 const tils = await getCollection("til");
 const books = await getCollection("book");
 
-const allPosts = posts.concat(tils).concat(books)
+const allPosts = posts.concat(tils).concat(books);
 let tags = getUniqueTags(allPosts);
 ---
 
