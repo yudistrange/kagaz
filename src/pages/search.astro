@@ -5,7 +5,7 @@ import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import Search from "@components/Search";
+import SearchBar from "@components/Search";
 
 // Retrieve all articles
 const posts: CollectionEntry<"blog">[] = await getCollection(
@@ -16,10 +16,12 @@ const tils: CollectionEntry<"til">[] = await getCollection(
   "til",
   ({ data }) => !data.draft
 );
+const books: CollectionEntry<"book">[] = await getCollection(
+  "book",
+  ({ data }) => !data.draft
+);
 
-const transform = ({
-  data,
-}: CollectionEntry<"blog"> | CollectionEntry<"til">) => ({
+const transform = ({ data }: CollectionEntry<"blog" | "til" | "book">) => ({
   title: data.title,
   description: data.description,
   data,
@@ -28,14 +30,15 @@ const transform = ({
 // List of items to search in
 const postList = posts.map(transform);
 const tilList = tils.map(transform);
+const bookList = books.map(transform);
 
-const searchList = tilList.concat(postList);
+const searchList = tilList.concat(postList).concat(bookList);
 ---
 
 <Layout title={`search | ${SITE.title}`}>
   <Header activeNav="search" />
   <Main pageTitle="search" pageDesc="find stuff...">
-    <Search client:load searchList={searchList} />
+    <SearchBar client:load searchList={searchList} />
   </Main>
   <Footer />
 </Layout>
