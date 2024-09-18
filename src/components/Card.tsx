@@ -17,16 +17,16 @@ export default function Card({ href, frontmatter, secHeading = true }: Props) {
       >
         {secHeading ? (
           <h2 className="text-lg font-medium decoration-dashed hover:underline">
-            {title}
+            {title.toLowerCase()}
           </h2>
         ) : (
           <h3 className="text-lg font-medium decoration-dashed hover:underline">
-            {title}
+            {title.toLowerCase()}
           </h3>
         )}
       </a>
       <Datetime datetime={pubDatetime} />
-      <p>{description}</p>
+      <p>{description.toLowerCase()}</p>
     </li>
   );
 }
