@@ -24,7 +24,7 @@ export async function getStaticPaths() {
   return [...tilResult, ...pagePaths];
 }
 
-const tils = await getCollection("til");
+const tils = await getCollection("til", ({ data }) => !data.draft);
 const { til } = Astro.props;
 ---
 

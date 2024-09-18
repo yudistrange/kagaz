@@ -24,7 +24,7 @@ export async function getStaticPaths() {
   return [...bookResult, ...pagePaths];
 }
 
-const books = await getCollection("book");
+const books = await getCollection("book", ({ data }) => !data.draft);
 const { book } = Astro.props;
 ---
 

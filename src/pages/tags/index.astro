@@ -9,13 +9,16 @@ import getUniqueTags from "@utils/getUniqueTags";
 import { SITE } from "@config";
 
 const posts: CollectionEntry<"book" | "til" | "blog">[] = await getCollection(
-  "blog"
+  "blog",
+  ({ data }) => !data.draft
 );
 const tils: CollectionEntry<"book" | "til" | "blog">[] = await getCollection(
-  "til"
+  "til",
+  ({ data }) => !data.draft
 );
 const books: CollectionEntry<"book" | "til" | "blog">[] = await getCollection(
-  "book"
+  "book",
+  ({ data }) => !data.draft
 );
 
 const allPosts = posts.concat(tils).concat(books);
