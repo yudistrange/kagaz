@@ -21,7 +21,7 @@ const { books } = Astro.props;
     <ul>
       {
         books.map(({ data }) => (
-          <Card href={`/book/${slugify(data)}`} frontmatter={data} />
+          <Card href={`/books/${slugify(data)}`} frontmatter={data} />
         ))
       }
     </ul>
